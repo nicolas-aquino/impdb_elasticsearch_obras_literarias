@@ -35,25 +35,25 @@ public class ObrasLiterariasServiceImpl implements IObrasLiterariasService {
     @Override
     public  List<ResObraDTO> getByAutor(String autor) {
         List<Obra> obrasByAutor = repository.findByAutor(autor);
-        return obrasByAutor.stream().map(obra -> mapper.map(obrasByAutor,ResObraDTO.class)).toList();
+        return obrasByAutor.stream().map(obra -> mapper.map(obra,ResObraDTO.class)).toList();
     }
 
     @Override
     public List<ResObraDTO> getByTituloLike(String palabraClave) {
         List<Obra> obrasByTitulo= repository.findByNombreLike(palabraClave);
-        return obrasByTitulo.stream().map(obra -> mapper.map(obrasByTitulo,ResObraDTO.class)).toList();
+        return obrasByTitulo.stream().map(obra -> mapper.map(obra,ResObraDTO.class)).toList();
     }
 
     @Override
     public List<ResObraDTO> getTop5PagesQuantity() {
-        List<Obra> topObras= repository.findTop5PagesQuantity();
-        return topObras.stream().map(obra -> mapper.map(topObras,ResObraDTO.class)).toList();
+        List<Obra> topObras= repository.findTop5ByOrderByCantPaginasDesc();
+        return topObras.stream().map(obra -> mapper.map(obra,ResObraDTO.class)).toList();
     }
 
     @Override
     public List<ResObraDTO> getByYearBefore(Integer year) {
-        List<Obra> obrasBeforeYear= repository.findByAnioBefore(year);
-        return obrasBeforeYear.stream().map(obra -> mapper.map(obrasBeforeYear,ResObraDTO.class)).toList();
+        List<Obra> obrasBeforeYear= repository.findByAnioLessThan(year);
+        return obrasBeforeYear.stream().map(obra -> mapper.map(obra,ResObraDTO.class)).toList();
     }
 
     @Override
